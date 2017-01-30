@@ -21,6 +21,7 @@ module.exports = {
     'rules': {
         'indent': ["error", 4],
         'linebreak-style': 0,
+        'no-return-assign': 0,
         // don't require .vue extension when importing
         'import/extensions': ['error', 'always', {
             'js': 'never',
