@@ -1,13 +1,14 @@
 <template>
     <li>
-        <div class="profilePic inline">
+        <div class="profilePic">
             <img :src="user.profilePic" alt="profile picture">
         </div>
-        <div class="inline">
+        <div class="informations">
             {{ user.firstName }} {{ user.lastName }}
         </div>
-        <div class="inline">
-            button area
+        <div class="actions">
+            <button class="arrow-up"></button>
+            <button class="arrow-down"></button>
         </div>
     </li>
 </template>
@@ -20,11 +21,68 @@
 
 <style scoped>
     li {
-        background: #ccc;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        box-sizing: border-box;
+        background: #FFFFFF;
         margin: 5px 0 5px 0;
         border-radius: 5px;
+        border: 1px solid #CCCCCC;
+        height: 150px;
+        position: relative;
     }
-    .inline {
-        display: inline-block;
+
+    .profilePic {
+        box-sizing: border-box;
+        height: 100%;
+        border-right: 1px solid #CCCCCC;
+        background: #FAFAFA;
+        position: relative;
+        width: 120px;
+    }
+
+    .profilePic img {
+        box-sizing: border-box;
+        max-height: 130px;
+        border-radius: 50%;
+        border: 1px solid #CCCCCC;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .informations {
+        box-sizing: border-box;
+        padding: 10px 0 10px 0;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 60px;
+        height: 100%;
+        border-left: 1px solid #CCCCCC;
+        background: #FAFAFA;
+    }
+
+    .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+
+        border-bottom: 20px solid #CCCCCC;
+    }
+
+    .arrow-down {
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+
+        border-top: 20px solid #CCCCCC;
     }
 </style>

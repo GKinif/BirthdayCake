@@ -20,9 +20,7 @@
         },
         created() {
             userServices.getUsers()
-                .then((users) => {
-                    this.userList = users;
-                });
+                .then(users => this.userList = users);
         },
         components: {
             Hello,
@@ -32,7 +30,6 @@
 </script>
 
 <style>
-    $test: #DDDDDD;
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -40,6 +37,8 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 60px;
-        background: $test;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 600px;
     }
 </style>
