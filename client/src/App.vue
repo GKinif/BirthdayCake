@@ -2,7 +2,8 @@
     <div id="app">
         <img src="./assets/logo.png">
         <hello></hello>
-        <user-list :userList="userList"></user-list>
+        <user-list :userList="shamedUserList" :isShamedUsers="true"></user-list>
+        <user-list :userList="goodUserList"></user-list>
     </div>
 </template>
 
@@ -15,12 +16,25 @@
         name: 'app',
         data() {
             return {
-                userList: [],
+                shamedUserList: [],
+                goodUserList: [],
             };
         },
         created() {
-            userServices.getUsers()
-                .then(users => this.userList = users);
+            userServices.getShamedUsers()
+                .then(users => this.shamedUserList = users.sort((a, b) => {
+                    const year = new Date().getFullYear();
+                    const dateA = new Date(year, a.birthdate.getMonth(), a.birthdate.getDate());
+                    const dateB = new Date(year, b.birthdate.getMonth(), b.birthdate.getDate());
+                    return dateA > dateB;
+                }));
+            userServices.getGoodUsers()
+                .then(users => this.goodUserList = users.sort((a, b) => {
+                    const year = new Date().getFullYear();
+                    const dateA = new Date(year, a.birthdate.getMonth(), a.birthdate.getDate());
+                    const dateB = new Date(year, b.birthdate.getMonth(), b.birthdate.getDate());
+                    return dateA > dateB;
+                }));
         },
         components: {
             Hello,

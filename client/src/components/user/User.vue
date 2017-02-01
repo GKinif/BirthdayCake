@@ -3,19 +3,37 @@
         <div class="profilePic">
             <img :src="user.profilePic" alt="profile picture">
         </div>
-        <div class="informations">
-            {{ user.firstName }} {{ user.lastName }}
+        <div class="informations" :class="{ informationRed: isShamed }">
+            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+            <p>Birthday: {{ birthday }}</p>
         </div>
         <div class="actions">
-            <button class="arrow-up"></button>
-            <button class="arrow-down"></button>
+            <a @click="onUpClicked" class="arrow-up" tabindex="0" role="button"></a>
+            <a @click="onDownClicked" class="arrow-down" tabindex="0" role="button"></a>
         </div>
     </li>
 </template>
 
 <script>
     export default {
-        props: ['user'],
+        props: ['user', 'isShamed'],
+        computed: {
+            birthday() {
+                const day = this.user.birthdate.getDate() < 10 ?
+                    `0${this.user.birthdate.getDate()}` :
+                    `${this.user.birthdate.getDate()}`;
+                const month = this.user.birthdate.getMonth() + 1 < 10 ?
+                    `0${this.user.birthdate.getMonth() + 1}` :
+                    `${this.user.birthdate.getMonth() + 1}`;
+                return `${day} / ${month}`;
+            },
+        },
+        methods: {
+            onUpClicked() {
+            },
+            onDownClicked() {
+            },
+        },
     };
 </script>
 
@@ -57,6 +75,11 @@
         padding: 10px 0 10px 0;
     }
 
+    .informationRed {
+        box-shadow: inset 0 0 10px #D96A63;
+        background: #FFF3F2;
+    }
+
     .actions {
         display: flex;
         flex-direction: column;
@@ -73,7 +96,6 @@
         height: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-
         border-bottom: 20px solid #CCCCCC;
     }
 
@@ -82,7 +104,6 @@
         height: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-
         border-top: 20px solid #CCCCCC;
     }
 </style>
