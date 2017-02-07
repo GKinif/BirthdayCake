@@ -8,7 +8,6 @@
     import User from './User';
 
     export default {
-        name: 'app',
         props: ['userList', 'isShamedUsers'],
         components: {
             User,
@@ -19,5 +18,8 @@
 <style scoped>
     ul {
         list-style-type: none;
+        margin: 0 10px 0 10px;
+        padding: 0;
+        box-sizing: border-box;
     }
 </style>

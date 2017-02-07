@@ -1,13 +1,13 @@
 <template>
     <li>
-        <div class="profilePic">
+        <div class="profilePic" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
             <img :src="user.profilePic" alt="profile picture">
         </div>
-        <div class="informations" :class="{ informationRed: isShamed }">
+        <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
             <p>Birthday: {{ birthday }}</p>
         </div>
-        <div class="actions">
+        <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
             <a @click="onUpClicked" class="arrow-up" tabindex="0" role="button"></a>
             <a @click="onDownClicked" class="arrow-down" tabindex="0" role="button"></a>
         </div>
@@ -46,16 +46,16 @@
         background: #FFFFFF;
         margin: 5px 0 5px 0;
         border-radius: 5px;
-        border: 1px solid #CCCCCC;
         height: 150px;
         position: relative;
+        overflow: hidden;
     }
 
     .profilePic {
         box-sizing: border-box;
         height: 100%;
-        border-right: 1px solid #CCCCCC;
-        background: #FAFAFA;
+        border-right: 1px solid #5D635E;
+        background: #93C0A4;
         position: relative;
         width: 120px;
     }
@@ -64,7 +64,7 @@
         box-sizing: border-box;
         max-height: 130px;
         border-radius: 50%;
-        border: 1px solid #CCCCCC;
+        border: 1px solid #5D635E;
         position: absolute;
         left: 10px;
         top: 10px;
@@ -76,9 +76,11 @@
         flex: 1;
     }
 
-    .informationRed {
-        box-shadow: inset 0 0 10px #D96A63;
-        background: #FFF3F2;
+    .bdayWarning {
+        background: #D3B6AB;
+    }
+    .bdayOk {
+        background: #93C0A4;
     }
 
     .actions {
@@ -89,7 +91,6 @@
         width: 60px;
         height: 100%;
         border-left: 1px solid #CCCCCC;
-        background: #FAFAFA;
     }
 
     .arrow-up {
@@ -97,7 +98,7 @@
         height: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-        border-bottom: 20px solid #CCCCCC;
+        border-bottom: 20px solid #DADBD7;
     }
 
     .arrow-down {
@@ -105,6 +106,6 @@
         height: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-        border-top: 20px solid #CCCCCC;
+        border-top: 20px solid #DADBD7;
     }
 </style>
