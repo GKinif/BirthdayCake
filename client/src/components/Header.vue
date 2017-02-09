@@ -12,6 +12,7 @@
 <style scoped>
     h1, h2 {
         font-weight: normal;
+        color: #FEF9F6;
     }
 
     ul {

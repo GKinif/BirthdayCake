@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <img src="./assets/logo2.png">
+        <img class="logo" src="./assets/logo3.png">
         <app-header></app-header>
         <user-list :userList="shamedUserList" :isShamedUsers="true"></user-list>
         <user-list :userList="goodUserList"></user-list>
@@ -47,6 +47,7 @@
     html, body {
         margin: 0;
         padding: 0;
+        background-color: #757575;
     }
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -59,6 +60,11 @@
         margin-right: auto;
         max-width: 600px;
         height: 100%;
-        background: #929B93;
+        background: #212121;
+        color: #212121;
+    }
+
+    .logo {
+        max-width: 100%;
     }
 </style>

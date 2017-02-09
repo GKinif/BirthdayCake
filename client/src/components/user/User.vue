@@ -8,8 +8,7 @@
             <p>Birthday: {{ birthday }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <a @click="onUpClicked" class="arrow-up" tabindex="0" role="button"></a>
-            <a @click="onDownClicked" class="arrow-down" tabindex="0" role="button"></a>
+            <button class="btnIncrease" v-if="isShamed" @click="onIncreaseClicked">+</button>
         </div>
     </li>
 </template>
@@ -29,9 +28,8 @@
             },
         },
         methods: {
-            onUpClicked() {
-            },
-            onDownClicked() {
+            onIncreaseClicked() {
+                // add votes for the user to help him being  unashamed
             },
         },
     };
@@ -43,7 +41,7 @@
         flex-direction: row;
         justify-content: space-between;
         box-sizing: border-box;
-        background: #FFFFFF;
+        background: #FEF9F6;
         margin: 5px 0 5px 0;
         border-radius: 5px;
         height: 150px;
@@ -54,7 +52,7 @@
     .profilePic {
         box-sizing: border-box;
         height: 100%;
-        border-right: 1px solid #5D635E;
+        border-right: 1px solid #212121;
         background: #93C0A4;
         position: relative;
         width: 120px;
@@ -64,7 +62,7 @@
         box-sizing: border-box;
         max-height: 130px;
         border-radius: 50%;
-        border: 1px solid #5D635E;
+        border: 1px solid #212121;
         position: absolute;
         left: 10px;
         top: 10px;
@@ -77,10 +75,10 @@
     }
 
     .bdayWarning {
-        background: #D3B6AB;
+        background: #FF5252;
     }
     .bdayOk {
-        background: #93C0A4;
+        background: #009688;
     }
 
     .actions {
@@ -90,22 +88,29 @@
         align-items: center;
         width: 60px;
         height: 100%;
-        border-left: 1px solid #CCCCCC;
+        border-left: 1px solid #212121;
     }
 
-    .arrow-up {
-        width: 0;
-        height: 0;
-        border-left: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-bottom: 20px solid #DADBD7;
+    .btnIncrease {
+        box-sizing: border-box;
+        padding: 0;
+        color: #FEF9F6;
+        background-color: transparent;
+        border: 2px solid #FEF9F6;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        font-size: 2em;
+        cursor: pointer;
+        transition: width .5s, height .5s, line-height .5s;
     }
 
-    .arrow-down {
-        width: 0;
-        height: 0;
-        border-left: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-top: 20px solid #DADBD7;
+    .btnIncrease:hover, .btnIncrease:focus {
+        color: #009688;
+        border: 2px solid #009688;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
     }
 </style>
