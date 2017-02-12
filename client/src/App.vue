@@ -2,39 +2,32 @@
     <div id="app">
         <img class="logo" src="./assets/logo3.png">
         <app-header></app-header>
-        <user-list :userList="shamedUserList" :isShamedUsers="true"></user-list>
-        <user-list :userList="goodUserList"></user-list>
+        <user-list :userList="shamedUsers" :isShamedUsers="true"></user-list>
+        <user-list :userList="goodUsers"></user-list>
     </div>
 </template>
 
 <script>
-    import userServices from './services/userServices';
+    import { mapGetters, mapActions } from 'vuex';
+    import * as types from './store/types';
     import Header from './components/Header';
     import UserList from './components/user/UserList';
 
     export default {
         name: 'app',
-        data() {
-            return {
-                shamedUserList: [],
-                goodUserList: [],
-            };
+        computed: {
+            ...mapGetters({
+                goodUsers: types.GET_GOOD_USERS,
+                shamedUsers: types.GET_SHAMED_USERS,
+            }),
+        },
+        methods: {
+            ...mapActions({
+                loadUsers: types.LOAD_USERS,
+            }),
         },
         created() {
-            userServices.getShamedUsers()
-                .then(users => this.shamedUserList = users.sort((a, b) => {
-                    const year = new Date().getFullYear();
-                    const dateA = new Date(year, a.birthdate.getMonth(), a.birthdate.getDate());
-                    const dateB = new Date(year, b.birthdate.getMonth(), b.birthdate.getDate());
-                    return dateA > dateB;
-                }));
-            userServices.getGoodUsers()
-                .then(users => this.goodUserList = users.sort((a, b) => {
-                    const year = new Date().getFullYear();
-                    const dateA = new Date(year, a.birthdate.getMonth(), a.birthdate.getDate());
-                    const dateB = new Date(year, b.birthdate.getMonth(), b.birthdate.getDate());
-                    return dateA > dateB;
-                }));
+            this.loadUsers();
         },
         components: {
             appHeader: Header,

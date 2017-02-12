@@ -1,0 +1,8 @@
+// USERS GETTERS
+export const GET_USERS = 'GET_USERS';
+export const GET_SHAMED_USERS = 'GET_SHAMED_USERS';
+export const GET_GOOD_USERS = 'GET_GOOD_USERS';
+// USERS MUTATIONS
+export const SET_USERS = 'SET_USERS';
+// USERS ACTIONS
+export const LOAD_USERS = 'LOAD_USERS';

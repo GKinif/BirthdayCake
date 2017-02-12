@@ -73,31 +73,8 @@ const users = [
     },
 ];
 
-function isUserBirthCakeOk(user) {
-    const currentDate = new Date();
-    const isBirthdateAlreadyPassed = user.birthdate.getMonth() < currentDate.getMonth() ||
-        (
-            user.birthdate.getDate() <= currentDate.getDate() &&
-            user.birthdate.getMonth() <= currentDate.getMonth()
-        );
-    const lastBirthdayCake = Math.max(...user.previousYears.map(year => year.year));
-
-    return !isBirthdateAlreadyPassed ||
-        currentDate.getFullYear() <= Number(lastBirthdayCake);
-}
-
 export default {
     getUsers() {
         return Promise.resolve(users);
-    },
-    getShamedUsers() {
-        const shamedUsers = users.filter(user => !isUserBirthCakeOk(user));
-
-        return Promise.resolve(shamedUsers);
-    },
-    getGoodUsers() {
-        const goodUsers = users.filter(user => isUserBirthCakeOk(user));
-
-        return Promise.resolve(goodUsers);
     },
 };
