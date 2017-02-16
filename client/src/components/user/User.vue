@@ -8,7 +8,13 @@
             <p>Birthday: {{ birthday }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <button class="btnIncrease" v-if="isShamed" @click="onIncreaseClicked">+</button>
+            <button class="btnIncrease" v-if="isShamed" @click="onIncreaseClicked">
+                <svg viewBox="0 0 35 35">
+                    <circle cx="17.5" cy="17.5" r="16"/>
+                    <line x1="6" y1="17" x2="30" y2="17" />
+                    <line x1="18" y1="6" x2="18" y2="30" />
+                </svg>
+            </button>
         </div>
     </li>
 </template>
@@ -91,26 +97,39 @@
         border-left: 1px solid #212121;
     }
 
-    .btnIncrease {
-        box-sizing: border-box;
-        padding: 0;
-        color: #FEF9F6;
-        background-color: transparent;
-        border: 2px solid #FEF9F6;
-        border-radius: 50%;
-        height: 30px;
-        width: 30px;
-        line-height: 30px;
-        font-size: 2em;
+    .btnIncrease{
+        background:none;
+        border:none;
+        transition: 0.2s ease-out;
         cursor: pointer;
-        transition: width .5s, height .5s, line-height .5s;
+    }
+
+    .btnIncrease svg{
+        width: 40px;
+        height:40px;
+    }
+    .btnIncrease svg circle {
+        fill: none;
+        stroke: #FEF9F6;
+        stroke-width: 2px;
+        transition: 0.2s ease-out;
+    }
+
+    .btnIncrease svg line {
+        stroke: #FEF9F6;
+        stroke-width: 2px;
+        transition: 0.2s ease-out;
     }
 
     .btnIncrease:hover, .btnIncrease:focus {
-        color: #009688;
-        border: 2px solid #009688;
-        height: 40px;
-        width: 40px;
-        line-height: 40px;
+        transform: scale(1.1);
+    }
+
+    .btnIncrease:hover svg circle, .btnIncrease:focus svg circle {
+        stroke: #009688;
+    }
+
+    .btnIncrease:hover svg line, .btnIncrease:focus svg line {
+        stroke: #009688;
     }
 </style>
