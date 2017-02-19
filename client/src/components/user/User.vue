@@ -47,7 +47,9 @@
         flex-direction: row;
         justify-content: space-between;
         box-sizing: border-box;
+        text-align: center;
         background: #FEF9F6;
+        color: #212121;
         margin: 5px 0 5px 0;
         border-radius: 5px;
         height: 150px;
