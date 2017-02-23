@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-const config = require('../../config'); // get our config file
 const User   = require('../models/user'); // get our mongoose model
 
 // API ROUTES -------------------
@@ -28,7 +27,7 @@ userRoutes.post('/authenticate', function(req, res) {
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, config.secret, {
+                var token = jwt.sign(user, process.env.TOKEN_SECRET, {
                     expiresIn: 60 * 60 * 24 // expires in 24 hours
                 });
 
@@ -52,7 +51,7 @@ userRoutes.use(function(req, res, next) {
     // decode token
     if (token) {
         // verifies secret and checks exp
-        jwt.verify(token, config.secret, function(err, decoded) {
+        jwt.verify(token, process.env.TOKEN_SECRET, function(err, decoded) {
             if (err) {
                 return res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {

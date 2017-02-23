@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 const router = require('./app/routes/router');
-const config = require('./config'); // get our config file
 
 // =======================
 // configuration =========
