@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "loadFixtures": "node ./fixtures/fixtures"
   },
   "keywords": [],
   "author": "",
