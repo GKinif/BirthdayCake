@@ -11,7 +11,7 @@ const router = require('./app/routes/router');
 // =======================
 // configuration =========
 // =======================
-mongoose.connect(config.database); // connect to database
+mongoose.connect(process.env.DB); // connect to database
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
