@@ -1,6 +1,7 @@
 const express = require('express');
 const authenticationRoutes = require('./authenticationRoutes');
 const userRoutes = require('./userRoutes');
+const registerRoutes = require('./registerRoutes');
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.get('/', function(req, res) {
 
 // apply the routes to our application with the prefix /api
 router.use('/api', authenticationRoutes);
+router.use('/api', registerRoutes);
 router.use('/api', userRoutes);
 
 

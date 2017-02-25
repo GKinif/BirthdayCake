@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-const User   = require('../models/user'); // get our mongoose model
+const User   = require('../models/User'); // get our mongoose model
 
 // AUTHENTICATION ROUTES -------------------
 // get an instance of the router for api routes
