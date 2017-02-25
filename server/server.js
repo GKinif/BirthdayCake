@@ -3,15 +3,20 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-
+const passport = require('passport');
 require('dotenv').config();
 
+const passportStrategy = require('./config/passportStrategy');
 const router = require('./app/routes/router');
 
 // =======================
 // configuration =========
 // =======================
 mongoose.connect(process.env.DB); // connect to database
+
+// initialize passport
+passport.use(passportStrategy);
+app.use(passport.initialize());
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));

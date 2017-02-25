@@ -4,7 +4,7 @@ const users = [
     {
         email: 'test@test.com',
         password: 'test',
-        admin: true,
+        role: 'admin',
         firstName: 'Guillaume',
         lastName: 'Kinif',
         birthDate: new Date('1985-08-02'),
@@ -20,7 +20,6 @@ const users = [
     {
         email: 'dummy@test.com',
         password: 'test',
-        admin: false,
         firstName: 'Dummy',
         lastName: 'User',
         birthDate: new Date('1990-05-15'),
@@ -36,7 +35,6 @@ const users = [
     {
         email: 'damned@test.com',
         password: 'test',
-        admin: false,
         firstName: 'Damned',
         lastName: 'Boy',
         birthDate: new Date('1995-01-15'),

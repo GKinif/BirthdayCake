@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const User   = require('../models/user'); // get our mongoose model
 
@@ -19,59 +20,38 @@ userRoutes.post('/authenticate', function(req, res) {
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
-
             // check if password matches
-            if (user.password != req.body.password) {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-            } else {
+            user.comparePassword(req.body.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        // if user is found and password is right
+                        // create a token
+                        const token = jwt.sign(user.toObject(), process.env.TOKEN_SECRET, {
+                            expiresIn: 60 * 60 * 24 // expires in 24 hours
+                        });
 
-                // if user is found and password is right
-                // create a token
-                var token = jwt.sign(user, process.env.TOKEN_SECRET, {
-                    expiresIn: 60 * 60 * 24 // expires in 24 hours
-                });
-
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
-                });
-            }
+                        // return the information including token as JSON
+                        res.json({
+                            success: true,
+                            message: 'Authentication complete',
+                            token: token
+                        });
+                    } else {
+                        res.json(
+                            { success: false, message: 'Authentication failed. Wrong password.' }
+                        );
+                    }
+                })
+                .catch(err => console.log('Authentication error: ', err));
         }
     });
 });
 
-// route middleware to verify a token
-userRoutes.use(function(req, res, next) {
-
-    // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-    // decode token
-    if (token) {
-        // verifies secret and checks exp
-        jwt.verify(token, process.env.TOKEN_SECRET, function(err, decoded) {
-            if (err) {
-                return res.json({ success: false, message: 'Failed to authenticate token.' });
-            } else {
-                // if everything is good, save to request for use in other routes
-                req.decoded = decoded;
-                next();
-            }
-        });
-
-    } else {
-
-        // if there is no token
-        // return an error
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided.'
-        });
-
-    }
-});
+// =======================
+// Protected routes ======
+// =======================
+// All routes after this will need jwt authentication
+userRoutes.use(passport.authenticate('jwt', { session: false }));
 
 // route to show a random message (GET http://localhost:8080/api/)
 userRoutes.get('/', function(req, res) {

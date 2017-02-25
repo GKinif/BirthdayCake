@@ -1,12 +1,15 @@
-// get an instance of mongoose and mongoose.Schema
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-// set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('User', new Schema({
+const UserSchema = new Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    admin: Boolean,
+    role: {
+        type: String,
+        enum: ['user', 'moderator', 'admin'],
+        default: 'user'
+    },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     birthDate: { type: Date, required: true },
@@ -23,4 +26,38 @@ module.exports = mongoose.model('User', new Schema({
             author: { userId: String, firstName: String, lastName: String },
         }
     ],
-}));
+});
+
+/**
+ * User bcrypt to encrypt user password before saving
+ */
+UserSchema.pre('save', function (next) {
+    const user = this;
+    if (this.isModified('password') || this.isNew) {
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(user.password, salt, function(err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        return next();
+    }
+});
+
+/**
+ * Compare provided password with the user password
+ * @param {String} password
+ * @returns {*}
+ */
+UserSchema.methods.comparePassword = function(password) {
+    return bcrypt.compare(password, this.password);
+};
+
+module.exports = mongoose.model('User', UserSchema);

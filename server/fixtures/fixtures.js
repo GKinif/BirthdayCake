@@ -9,5 +9,9 @@ const fixtures = {
 };
 
 Object.keys(fixtures).forEach(fixture => {
-    fixtures[fixture].addSamplesToDB()
+    if (fixtures[fixture].hasOwnProperty('addSamplesToDB')) {
+        fixtures[fixture].addSamplesToDB();
+    } else {
+        console.log(`Fixture <${fixture}> is missing method addSamplesToDB`);
+    }
 });
