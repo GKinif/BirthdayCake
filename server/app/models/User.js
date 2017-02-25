@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     ],
     votes: [
         {
-            dateCreation: Date,
+            dateCreation: { type: Date, default: Date.now },
             author: { userId: String, firstName: String, lastName: String },
         }
     ],
