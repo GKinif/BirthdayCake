@@ -6,13 +6,14 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 require('dotenv').config();
 
+const config = require('./config/config');
 const passportStrategy = require('./config/passportStrategy');
 const router = require('./app/routes/router');
 
 // =======================
 // configuration =========
 // =======================
-mongoose.connect(process.env.DB); // connect to database
+mongoose.connect(config.db); // connect to database
 
 // initialize passport
 passport.use(passportStrategy);
@@ -33,6 +34,5 @@ app.use(router);
 // =======================
 // start the server ======
 // =======================
-const port = process.env.PORT || 8080;
-app.listen(port);
-console.log('Magic happens at http://localhost:' + port);
+app.listen(config.port);
+console.log('Magic happens at http://localhost:' + config.port);
