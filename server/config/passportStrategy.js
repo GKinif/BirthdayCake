@@ -14,7 +14,8 @@ const strategy = new JwtStrategy(opts, function(jwt_payload, done) {
         if (user) {
             done(null, user);
         } else {
-            done(null, false);
+            // message can be found under req.authInfo.message
+            done(null, false, {message: 'Unable to Authenticate token'});
         }
     });
 });
