@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const RegistrationSchema = new Schema({
-    registerId: { type: String, unique: true, required: true},
+    registerId: { type: String, required: true, unique: true },
     email: { type: String, unique: true },
-    link: { type: String, required: true},
+    link: { type: String, required: true },
     dateCreation: { type: Date, default: Date.now },
-    author: {
-        userId: String,
-        firstName: String,
-        lastName: String
-    },
+    creator : { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 module.exports = mongoose.model('Registration', RegistrationSchema);

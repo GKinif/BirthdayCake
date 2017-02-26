@@ -5,6 +5,7 @@ const shortid = require('shortid');
 
 const config = require('../../config/config');
 const Registration = require('../models/Registration');
+const User = require('../models/User');
 
 const registerRoutes = express.Router();
 
@@ -21,17 +22,16 @@ registerRoutes.use(passport.authenticate('jwt', { session: false }));
 registerRoutes.get('/register', function(req, res) {
     const registerId = shortid.generate();
     const registerLink = `${req.hostname}:${config.port}${req.originalUrl}/${registerId}`;
+
     const registration = {
         registerId,
         link: registerLink,
-        author: {
-            userId: req.user._id,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-        },
+        creator: req.user._id,
     };
+
     const registrationInstance = new Registration(registration);
     registrationInstance.save();
+
     res.json({registration: registrationInstance.toObject()});
 });
 
