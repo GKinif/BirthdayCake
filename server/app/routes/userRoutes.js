@@ -11,17 +11,13 @@ const userRoutes = express.Router();
 // Protected routes ======
 // =======================
 // All routes after this will need jwt authentication
-userRoutes.use(passport.authenticate('jwt', { session: false }));
-
-// route to show a random message (GET http://localhost:8080/api/)
-userRoutes.get('/', function(req, res) {
-    res.json({ message: 'Welcome to the coolest API on earth!' });
-});
+// userRoutes.use(passport.authenticate('jwt', { session: false }));
 
 // route to return all users (GET http://localhost:8080/api/users)
-userRoutes.get('/users', function(req, res) {
+userRoutes.get('/user', function(req, res) {
     User.find({}, function(err, users) {
-        res.json(users);
+        const usersData = users.map(user => user.toObject());
+        res.json(usersData);
     });
 });
 

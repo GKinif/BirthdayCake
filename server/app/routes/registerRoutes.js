@@ -13,7 +13,7 @@ const registerRoutes = express.Router();
 // Protected routes ======
 // =======================
 // All routes after this will need jwt authentication
-registerRoutes.use(passport.authenticate('jwt', { session: false }));
+// registerRoutes.use(passport.authenticate('jwt', { session: false }));
 
 /**
  * Generate a registerId and send back a register link

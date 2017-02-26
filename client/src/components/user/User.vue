@@ -5,7 +5,7 @@
         </div>
         <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-            <p>Birthday: {{ birthday }}</p>
+            <p>Birthday: {{ birthDay }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
             <button class="btnIncrease" v-if="isShamed" @click="onIncreaseClicked">
@@ -23,13 +23,13 @@
     export default {
         props: ['user', 'isShamed'],
         computed: {
-            birthday() {
-                const day = this.user.birthdate.getDate() < 10 ?
-                    `0${this.user.birthdate.getDate()}` :
-                    `${this.user.birthdate.getDate()}`;
-                const month = this.user.birthdate.getMonth() + 1 < 10 ?
-                    `0${this.user.birthdate.getMonth() + 1}` :
-                    `${this.user.birthdate.getMonth() + 1}`;
+            birthDay() {
+                const day = this.user.birthDate.getDate() < 10 ?
+                    `0${this.user.birthDate.getDate()}` :
+                    `${this.user.birthDate.getDate()}`;
+                const month = this.user.birthDate.getMonth() + 1 < 10 ?
+                    `0${this.user.birthDate.getMonth() + 1}` :
+                    `${this.user.birthDate.getMonth() + 1}`;
                 return `${day} / ${month}`;
             },
         },

@@ -6,7 +6,6 @@ const User   = require('../models/User'); // get our mongoose model
 // get an instance of the router for api routes
 const authenticationRoutes = express.Router();
 
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
 authenticationRoutes.post('/authenticate', function(req, res) {
     // find the user
     User.findOne({

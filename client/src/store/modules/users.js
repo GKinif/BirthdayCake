@@ -1,13 +1,13 @@
 /* eslint no-shadow: "off", no-param-reassign: "off" */
-import userServices from '../../services/userServices';
+import userService from '../../services/userService';
 import * as types from '../types';
 
 function isUserBirthCakeOk(user) {
     const currentDate = new Date();
-    const isBirthdateAlreadyPassed = user.birthdate.getMonth() < currentDate.getMonth() ||
+    const isBirthdateAlreadyPassed = user.birthDate.getMonth() < currentDate.getMonth() ||
         (
-            user.birthdate.getDate() <= currentDate.getDate() &&
-            user.birthdate.getMonth() <= currentDate.getMonth()
+            user.birthDate.getDate() <= currentDate.getDate() &&
+            user.birthDate.getMonth() <= currentDate.getMonth()
         );
     const lastBirthdayCake = Math.max(...user.previousYears.map(year => year.year));
 
@@ -30,7 +30,9 @@ const actions = {
         commit(types.SET_USERS, users);
     },
     [types.LOAD_USERS]: ({ commit }) => {
-        userServices.getUsers().then(users => commit(types.SET_USERS, users));
+        userService.getUsers().then((users) => {
+            commit(types.SET_USERS, users);
+        }).catch(); // @TODO: show info message to the user telleing we are not able to get users
     },
 };
 
