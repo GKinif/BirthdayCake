@@ -39,7 +39,28 @@ registerRoutes.get('/register', function(req, res) {
  *
  */
 registerRoutes.post('/register', function(req, res) {
-    res.json({body: req.body});
+    Registration.findOne({ registerId: req.body.registerId })
+        .then(registration => {
+            // @TODO: validate user data and save user in DB or send validation error
+            const fullRes = Object.assign(
+                {},
+                {
+                    registration: registration.toObject(),
+                    success: true,
+                }
+            );
+            res.json(fullRes);
+        })
+        .catch(err => {
+            const fullRes = Object.assign(
+                {},
+                {
+                    success: false,
+                    message: 'Unable to find registration',
+                }
+            );
+            res.json(fullRes);
+        });
 });
 
 module.exports = registerRoutes;
