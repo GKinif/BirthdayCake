@@ -14,6 +14,17 @@ const userService = () => (
                     return data.data;
                 });
         },
+        registerUser(registerId, userData) {
+            const payload = Object.assign(
+                {},
+                userData,
+                { registerId },
+            );
+            return axios.post(`${config.api.baseUrl}${config.api.register}`, payload)
+                .then((data) => {
+                    console.log('data: ', data);
+                });
+        },
     }
 );
 

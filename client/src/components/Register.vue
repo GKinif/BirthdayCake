@@ -30,15 +30,15 @@
                 <h3>Birth date</h3>
                 <div class="form-group">
                     <label for="day">Day</label>
-                    <select v-model="day" id="day">
+                    <select v-model.number="day" id="day">
                         <option v-for="day in possibleDay">{{ day }}</option>
                     </select>
                     <label for="month">Month</label>
-                    <select v-model="month" id="month">
+                    <select v-model.number="month" id="month">
                         <option v-for="month in possibleMonth">{{ month }}</option>
                     </select>
                     <label for="year">Year</label>
-                    <select v-model="year" id="year">
+                    <select v-model.number="year" id="year">
                         <option v-for="year in possibleYear">{{ year }}</option>
                     </select>
                 </div>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    // import authService from '../services/authService';
+    import userService from '../services/userService';
 
     export default {
         name: 'register',
@@ -60,15 +60,21 @@
                 password: '',
                 firstName: '',
                 lastName: '',
-                day: '',
-                month: '',
-                year: '',
+                day: null,
+                month: null,
+                year: null,
             };
         },
         computed: {
             birthDate() {
-                if (isFinite(this.day) && isFinite(this.month) && isFinite(this.year)) {
-                    return new Date(this.year, this.month, this.day);
+                if (
+                    this.day &&
+                    this.month &&
+                    this.year
+                ) {
+                    const day = this.day < 10 ? `0${this.day}` : `${this.day}`;
+                    const month = this.month < 10 ? `0${this.month}` : `${this.month}`;
+                    return `${this.year}-${month}-${day}`;
                 }
                 return null;
             },
@@ -87,7 +93,16 @@
                 return Array.from({ length: (end - start) + 1 }, (v, k) => k + start);
             },
             register() {
-                // @TODO: register the user
+                const userData = {
+                    email: this.email,
+                    password: this.password,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    birthDate: this.birthDate,
+                };
+                const registerId = this.$route.params.registerId;
+                userService.registerUser(registerId, userData);
+                // @TODO: catch promise error
             },
         },
     };
