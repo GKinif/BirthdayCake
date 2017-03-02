@@ -7,6 +7,7 @@ const RegistrationSchema = new Schema({
     link: { type: String, required: true },
     dateCreation: { type: Date, default: Date.now },
     creator : { type: Schema.Types.ObjectId, ref: 'User' },
+    isUsed: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model('Registration', RegistrationSchema);

@@ -101,8 +101,11 @@
                     birthDate: this.birthDate,
                 };
                 const registerId = this.$route.params.registerId;
-                userService.registerUser(registerId, userData);
-                // @TODO: catch promise error
+                userService.registerUser(registerId, userData)
+                    .catch((err) => {
+                        // @TODO: show flash message with error
+                        console.log(err.response.data.message);
+                    });
             },
         },
     };
