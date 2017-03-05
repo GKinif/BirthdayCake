@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="profilePic" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <img :src="user.profilePic" alt="profile picture">
+            <img :src="user.profilePic" alt="profile picture" v-if="user.profilePic && user.profilePic.length > 4">
         </div>
         <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
