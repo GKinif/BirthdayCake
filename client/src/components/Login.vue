@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+    import * as types from '../store/types';
     import authService from '../services/authService';
 
     export default {
@@ -23,10 +25,17 @@
             };
         },
         methods: {
+            ...mapActions({
+                showFlash: types.SHOW_FLASH_DURATION,
+            }),
             authenticate() {
                 authService.authenticate(this.email, this.password)
-                    .then((/* data */) => {
-                        // @TODO: show a success message to the user
+                    .then((data) => {
+                        this.showFlash({
+                            text: data.message,
+                            type: 'success',
+                            duration: 5,
+                        });
                     });
             },
         },
