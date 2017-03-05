@@ -109,7 +109,6 @@
                 const registerId = this.$route.params.registerId;
                 userService.registerUser(registerId, userData)
                     .then((data) => {
-                        console.log('register: ', data);
                         this.showFlash({
                             text: data.message,
                             type: 'success',
