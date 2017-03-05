@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+    import * as types from '../store/types';
     import userService from '../services/userService';
 
     export default {
@@ -89,6 +91,9 @@
             },
         },
         methods: {
+            ...mapActions({
+                showFlash: types.SHOW_FLASH_DURATION,
+            }),
             range(start, end) {
                 return Array.from({ length: (end - start) + 1 }, (v, k) => k + start);
             },
@@ -103,9 +108,20 @@
                 // @TODO: validate user data
                 const registerId = this.$route.params.registerId;
                 userService.registerUser(registerId, userData)
-                    .catch((/* err */) => {
+                    .then((data) => {
+                        console.log('register: ', data);
+                        this.showFlash({
+                            text: data.message,
+                            type: 'success',
+                        });
+                    })
+                    .catch((err) => {
                         // @TODO: show flash message with error
                         // console.log(err.response.data.message);
+                        this.showFlash({
+                            text: err.response.data.message,
+                            type: 'error',
+                        });
                     });
             },
         },

@@ -62,7 +62,6 @@ registerRoutes.post('/register', function(req, res) {
             }
             const userInstance = new User(userData);
 
-            // save the sample user
             return userInstance.save()
                 .then((user) => {
                     registration.isUsed = true;
@@ -75,6 +74,7 @@ registerRoutes.post('/register', function(req, res) {
                 {},
                 {
                     registration: userPromise.toObject(),
+                    message: 'successfully registered',
                     success: true,
                 }
             );
