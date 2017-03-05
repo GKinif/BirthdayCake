@@ -5,16 +5,19 @@
         <!--<keep-alive>-->
         <router-view></router-view>
         <!--</keep-alive>-->
+        <flash-message></flash-message>
     </div>
 </template>
 
 <script>
     import Header from './components/Header';
+    import FlashMessage from './components/FlashMessage';
 
     export default {
         name: 'app',
         components: {
             appHeader: Header,
+            FlashMessage,
         },
     };
 </script>
@@ -35,6 +38,7 @@
         height: 100%;
         background: #212121;
         color: #FEF9F6;
+        position: relative;
     }
 
     .logo {
