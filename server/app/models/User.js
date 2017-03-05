@@ -2,13 +2,15 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+export const userRoles = ['user', 'moderator', 'admin'];
+
 const UserSchema = new Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     isActive: { type: Boolean, default: true },
     role: {
         type: String,
-        enum: ['user', 'moderator', 'admin'],
+        enum: userRoles,
         default: 'user'
     },
     firstName: { type: String, required: true },

@@ -1,3 +1,5 @@
+import {userRoles} from '../../server/app/models/User';
+
 function userValidation() {
     function isEmailValid(email) {
         const re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
@@ -9,7 +11,7 @@ function userValidation() {
     }
 
     function isRoleValid(role) {
-        return !!role && ['user', 'moderator', 'admin'].indexOf(role) > -1;
+        return !!role && userRoles.indexOf(role) > -1;
     }
 
     function isFirstNameValid(firstName) {
