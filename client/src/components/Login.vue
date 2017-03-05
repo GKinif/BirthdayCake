@@ -34,7 +34,6 @@
                         this.showFlash({
                             text: data.message,
                             type: 'success',
-                            duration: 5,
                         });
                     });
             },

@@ -93,7 +93,8 @@ const actions = {
      */
     [types.SHOW_FLASH_DURATION]: ({ commit }, flash) => {
         commit(types.SET_FLASH, { text: flash.text, type: flash.type, isVisible: true });
-        setTimeout(() => commit(types.SET_FLASH_ISVISIBLE, false), flash.duration * 1000);
+        const duration = flash.duration || 5;
+        setTimeout(() => commit(types.SET_FLASH_ISVISIBLE, false), duration * 1000);
     },
 };
 
