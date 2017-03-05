@@ -1,4 +1,4 @@
-import {userRoles} from '../../server/app/models/User';
+const userRoles = ['user', 'moderator', 'admin'];
 
 function userValidation() {
     function isEmailValid(email) {

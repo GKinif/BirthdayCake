@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-export const userRoles = ['user', 'moderator', 'admin'];
+const userRoles = ['user', 'moderator', 'admin'];
 
 const UserSchema = new Schema({
     email: { type: String, unique: true, required: true },
