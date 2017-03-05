@@ -103,9 +103,9 @@
                 // @TODO: validate user data
                 const registerId = this.$route.params.registerId;
                 userService.registerUser(registerId, userData)
-                    .catch((err) => {
+                    .catch((/* err */) => {
                         // @TODO: show flash message with error
-                        console.log(err.response.data.message);
+                        // console.log(err.response.data.message);
                     });
             },
         },
