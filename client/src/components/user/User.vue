@@ -8,7 +8,7 @@
             <p>Birthday: {{ birthDay }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <button class="btnIncrease" v-if="isShamed" @click="onIncreaseClicked">
+            <button class="btnIncrease" v-if="isShamed" @click="onCakeUpClicked">
                 <svg viewBox="0 0 35 35">
                     <circle cx="17.5" cy="17.5" r="16"/>
                     <line x1="6" y1="17" x2="30" y2="17" />
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+    import authServices from '../../services/authService';
+    import userServices from '../../services/userService';
+
     export default {
         props: ['user', 'isShamed'],
         computed: {
@@ -34,8 +37,15 @@
             },
         },
         methods: {
-            onIncreaseClicked() {
-                // add votes for the user to help him being  unashamed
+            onCakeUpClicked() {
+                // @TODO: Disable button while waiting for server response
+                authServices.getAuthHeader()
+                    // eslint-disable-next-line
+                    .then(authHeader => userServices.addVote(this.user._id, authHeader))
+                    .then((user) => {
+                        // eslint-disable-next-line
+                        console.log('vote: ', user);
+                    });
             },
         },
     };

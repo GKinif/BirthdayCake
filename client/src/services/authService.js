@@ -29,9 +29,9 @@ const authService = () => {
                 `${config.api.baseUrl}${config.api.authenticate}`,
                 { email, password }
             )
-                .then((data) => {
-                    token = data.data;
-                    return data.data;
+                .then((response) => {
+                    token = response.data.token;
+                    return response.data;
                 })
                 .catch((err) => {
                     throw err;
@@ -43,7 +43,7 @@ const authService = () => {
          * @returns {Promise.<T>}
          */
         getAuthHeader() {
-            if (!isTokenValid()) {
+            if (!isTokenValid(token)) {
                 return Promise.reject(new Error('Invalid token'));
             }
             return Promise.resolve(createAuthHeader(token));
