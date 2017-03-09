@@ -16,6 +16,7 @@ const UserSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     birthDate: { type: Date, required: true },
+    nextBirthDay: { type: Date, required: true },
     profilePic: String,
     previousYears: [
         {
@@ -53,6 +54,26 @@ UserSchema.pre('save', function (next) {
         return next();
     }
 });
+
+/**
+ * Return the next birthday based on provided birthDate date
+ * @param {Date} birthDate
+ * @returns {Date}
+ */
+UserSchema.statics.calculateNextBirthDay = function(birthDate) {
+    let nextBirthDay;
+    const day = birthDate.getDate();
+    const month = birthDate.getMonth();
+    const currentYear = new Date().getFullYear();
+
+    if (new Date(currentYear, month, day) < new Date()) {
+        nextBirthDay = new Date(currentYear + 1, month, day);
+    } else {
+        nextBirthDay = new Date(currentYear, month, day);
+    }
+
+    return nextBirthDay;
+};
 
 /**
  * Compare provided password with the user password

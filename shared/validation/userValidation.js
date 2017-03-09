@@ -26,6 +26,10 @@ function userValidation() {
         return !!birthDate && isFinite(new Date(birthDate).getTime());
     }
 
+    function isBirthDayValid(birthDayDate) {
+        return !!birthDayDate && isFinite(new Date(birthDayDate).getTime());
+    }
+
     function isProfilePicNameValid() {
         // @TODO: validate image extension from image name
         return true;
@@ -42,7 +46,8 @@ function userValidation() {
             isPasswordValid(userData.password) &&
             isFirstNameValid(userData.firstName) &&
             isLastNameValid(userData.lastName) &&
-            isBirthDateValid(userData.birthDate)
+            isBirthDateValid(userData.birthDate) &&
+            isBirthDayValid(userData.nextBirthDay)
         );
     }
     return {
@@ -52,6 +57,7 @@ function userValidation() {
         isFirstNameValid,
         isLastNameValid,
         isBirthDateValid,
+        isBirthDayValid,
         isProfilePicNameValid,
         isProfilePicValid,
         isUserValid
