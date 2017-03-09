@@ -21,6 +21,7 @@ const registerRoutes = express.Router();
  * Save a RegisterId document in DB
  */
 registerRoutes.get('/register', function(req, res) {
+    // @TODO: use crypto number?
     const registerId = shortid.generate();
     const registerLink = `${req.hostname}:${config.port}${req.originalUrl}/${registerId}`;
 
@@ -49,12 +50,16 @@ registerRoutes.post('/register', function(req, res) {
             return registration;
         })
         .then(registration => {
+            const birthDate = new Date(req.body.birthDate);
+            const nextBirthDay = User.calculateNextBirthDay(birthDate);
+
             const userData = {
                 email: req.body.email,
                 password: req.body.password,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                birthDate: new Date(req.body.birthDate),
+                birthDate,
+                nextBirthDay,
             };
 
             if (!userValidation.isUserValid(userData)) {
