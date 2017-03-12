@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <user v-for="user in userList" :user="user" :isShamed="isShamedUsers"></user>
+        <user v-for="user in userList" :user="user"></user>
     </ul>
 </template>
 
@@ -8,7 +8,7 @@
     import User from './User';
 
     export default {
-        props: ['userList', 'isShamedUsers'],
+        props: ['userList'],
         components: {
             User,
         },

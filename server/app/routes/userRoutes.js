@@ -44,7 +44,7 @@ userRoutes.get('/user', function(req, res) {
     //     res.json(usersData);
     // });
 
-    userService.getBirthDayList()
+    userService.getUsers()
         .then((users) => {
             const usersData = users.map(user => user.toObject());
             res.json(usersData);
@@ -89,6 +89,18 @@ userRoutes.post(
         user.save();
         res.json(user);
     });
+});
+
+// GET user based on userId
+userRoutes.get('/birthdaylist', function(req, res) {
+    userService.getBirthDayList()
+        .then((users) => {
+            const usersData = users.map(user => user.toObject());
+            res.json(usersData);
+        })
+        .catch((err) => {
+            // @TODO: handle error
+        });
 });
 
 module.exports = userRoutes;

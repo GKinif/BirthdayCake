@@ -15,6 +15,16 @@ const userService = () => (
             return axios.get(`${config.api.baseUrl}${config.api.user}/${userId}`)
                 .then(response => response.data);
         },
+        getBirthDayList() {
+            return axios.get(`${config.api.baseUrl}${config.api.birthDayList}`)
+                .then((response) => {
+                    response.data.forEach((user) => {
+                        user.birthDate = new Date(user.birthDate);
+                        user.nextBirthDay = new Date(user.nextBirthDay);
+                    });
+                    return response.data;
+                });
+        },
         registerUser(registerId, userData) {
             const payload = Object.assign(
                 {},

@@ -32,7 +32,12 @@ const actions = {
     [types.LOAD_USERS]: ({ commit }) => {
         userService.getUsers().then((users) => {
             commit(types.SET_USERS, users);
-        }).catch(); // @TODO: show info message to the user telleing we are not able to get users
+        }).catch(); // @TODO: show info message to the user telling we are not able to get users
+    },
+    [types.LOAD_BIRTHDAY_LIST]: ({ commit }) => {
+        userService.getBirthDayList().then((users) => {
+            commit(types.SET_USERS, users);
+        }).catch(); // @TODO: show info message to the user telling we are not able to get users
     },
 };
 

@@ -24,7 +24,7 @@
     import userServices from '../../services/userService';
 
     export default {
-        props: ['user', 'isShamed'],
+        props: ['user'],
         computed: {
             birthDay() {
                 const day = this.user.birthDate.getDate() < 10 ?
@@ -34,6 +34,13 @@
                     `0${this.user.birthDate.getMonth() + 1}` :
                     `${this.user.birthDate.getMonth() + 1}`;
                 return `${day} / ${month}`;
+            },
+            isShamed() {
+                const currentDate = new Date();
+                const prevYear = this.user.previousYears.find(
+                    current => current.year === currentDate.getFullYear()
+                );
+                return this.user.nextBirthDay < currentDate && !prevYear;
             },
         },
         methods: {

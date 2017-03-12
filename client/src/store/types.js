@@ -9,6 +9,7 @@ export const GET_GOOD_USERS = 'GET_GOOD_USERS';
 export const SET_USERS = 'SET_USERS';
 // USERS ACTIONS
 export const LOAD_USERS = 'LOAD_USERS';
+export const LOAD_BIRTHDAY_LIST = 'LOAD_BIRTHDAY_LIST';
 
 /* ==============================
 === FLASH MESSAGE ===============

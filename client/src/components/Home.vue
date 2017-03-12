@@ -1,7 +1,6 @@
 <template>
     <div>
-        <user-list :userList="shamedUsers" :isShamedUsers="true"></user-list>
-        <user-list :userList="goodUsers"></user-list>
+        <user-list :userList="users"></user-list>
     </div>
 </template>
 
@@ -14,17 +13,16 @@
         name: 'home',
         computed: {
             ...mapGetters({
-                goodUsers: types.GET_GOOD_USERS,
-                shamedUsers: types.GET_SHAMED_USERS,
+                users: types.GET_USERS,
             }),
         },
         methods: {
             ...mapActions({
-                loadUsers: types.LOAD_USERS,
+                loadBirthDayList: types.LOAD_BIRTHDAY_LIST,
             }),
         },
         created() {
-            this.loadUsers();
+            this.loadBirthDayList();
         },
         components: {
             UserList,
