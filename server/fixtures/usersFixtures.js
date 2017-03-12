@@ -35,6 +35,22 @@ const users = [
         votes: [],
     },
     {
+        email: 'late@test.com',
+        password: 'test',
+        firstName: 'Late',
+        lastName: 'BB',
+        birthDate: new Date('1995-12-15'),
+        nextBirthDay: new Date('2017-12-15'),
+        profilePic: 'http://lorempixel.com/200/200/',
+        previousYears: [
+            {
+                year: 2016,
+                cakeDate: new Date('2016-12-15'),
+            },
+        ],
+        votes: [],
+    },
+    {
         email: 'damned@test.com',
         password: 'test',
         firstName: 'Damned',
