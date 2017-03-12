@@ -65,6 +65,26 @@ const users = [
             },
         ],
         votes: [],
+    },
+    {
+        email: 'good@test.com',
+        password: 'test',
+        firstName: 'Good',
+        lastName: 'Boy',
+        birthDate: new Date('1995-01-15'),
+        nextBirthDay: new Date('2018-01-15'),
+        profilePic: 'http://lorempixel.com/200/200/',
+        previousYears: [
+            {
+                year: 2016,
+                cakeDate: new Date('2016-01-15'),
+            },
+            {
+                year: 2017,
+                cakeDate: new Date('2017-01-15'),
+            },
+        ],
+        votes: [],
     }
 ];
 
