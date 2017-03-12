@@ -3,6 +3,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const config = require('../../config/config');
 const User   = require('../models/User'); // get our mongoose model
+const userService = require('../services/userService');
 
 // get an instance of the router
 const userRoutes = express.Router();
@@ -12,36 +13,45 @@ const userRoutes = express.Router();
 /**
  * GET all users
  * @query {number} limit
- * @query ['previousyears'] sort
+ * @query {string[]} sort ['previousyears']
  */
 userRoutes.get('/user', function(req, res) {
-    const possibleSort = {
-        previousyears: 'previousYears',
-    };
-    const currentYear = new Date().getFullYear();
-    const limit = req.query.limit && req.query.limit < config.maxQueryUser ?
-        req.query.limit :
-        config.maxQueryUser;
+    // const possibleSort = {
+    //     nextbirthbay: 'nextBirthDay',
+    // };
+    // const currentYear = new Date().getFullYear();
+    // const limit = req.query.limit && req.query.limit < config.maxQueryUser ?
+    //     req.query.limit :
+    //     config.maxQueryUser;
+    //
+    // const query = User.find({
+    //         previousYears: {
+    //             $not: {
+    //                 $elemMatch: { year: currentYear }
+    //             }
+    //         },
+    //     });
+    //
+    // if (req.query.sort && Object.keys(possibleSort).includes(req.query.sort)) {
+    //     query.sort({ [possibleSort[req.query.sort]]: 1 });
+    // }
+    //
+    // query.limit(limit);
+    //
+    // query.exec(function(err, users) {
+    //     // @TODO: handle error
+    //     const usersData = users.map(user => user.toObject());
+    //     res.json(usersData);
+    // });
 
-    const query = User.find({
-            previousYears: {
-                $not: {
-                    $elemMatch: { year: currentYear }
-                }
-            },
+    userService.getBirthDayList()
+        .then((users) => {
+            const usersData = users.map(user => user.toObject());
+            res.json(usersData);
+        })
+        .catch((err) => {
+            // @TODO: handle error
         });
-
-    if (req.query.sort && Object.keys(possibleSort).includes(req.query.sort)) {
-        query.sort({ [possibleSort[req.query.sort]]: -1 });
-    }
-
-    query.limit(limit);
-
-    query.exec(function(err, users) {
-        // @TODO: handle error
-        const usersData = users.map(user => user.toObject());
-        res.json(usersData);
-    });
 });
 
 // GET user based on userId
