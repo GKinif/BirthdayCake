@@ -3,12 +3,23 @@
         <h1>Birthday Cake</h1>
         <ul>
             <li><router-link :to="{ name: 'home'}" active-class="active" exact>Home</router-link></li>
-            <li><router-link :to="{ name: 'login'}" active-class="active">Login</router-link></li>
+            <li v-if="isLoggedIn"><router-link :to="{ name: 'login'}" active-class="active">Login</router-link></li>
         </ul>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+    import * as types from '../store/types';
+
+    export default {
+        name: 'header',
+        computed: {
+            ...mapGetters({
+                isLoggedIn: types.GET_ISLOGGEDIN,
+            }),
+        },
+    };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

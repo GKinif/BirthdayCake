@@ -1,4 +1,9 @@
 /* ==============================
+=== LOGIN =======================
+ ============================== */
+export const GET_ISLOGGEDIN = 'GET_ISLOGGEDIN';
+export const SET_ISLOGGEDIN = 'SET_ISLOGGEDIN';
+/* ==============================
 === USERS =======================
 ============================== */
 // USERS GETTERS

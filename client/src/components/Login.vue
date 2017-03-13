@@ -27,14 +27,24 @@
         methods: {
             ...mapActions({
                 showFlash: types.SHOW_FLASH_DURATION,
+                setIsLoggedIn: types.SET_ISLOGGEDIN,
             }),
             authenticate() {
                 authService.authenticate(this.email, this.password)
                     .then((data) => {
-                        this.showFlash({
-                            text: data.message,
-                            type: 'success',
-                        });
+                        if (data.success) {
+                            this.showFlash({
+                                text: data.message,
+                                type: 'success',
+                            });
+                            this.setIsLoggedIn(true);
+                        } else {
+                            this.showFlash({
+                                text: data.message,
+                                type: 'error',
+                            });
+                            this.setIsLoggedIn(false);
+                        }
                     });
             },
         },
