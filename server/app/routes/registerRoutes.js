@@ -17,10 +17,11 @@ const registerRoutes = express.Router();
 // registerRoutes.use(passport.authenticate('jwt', { session: false }));
 
 /**
- * Generate a registerId and send back a register link
+ * Generate a registerId and send back a register object
  * Save a RegisterId document in DB
  */
-registerRoutes.get('/register', function(req, res) {
+registerRoutes.get('/register', passport.authenticate('jwt', { session: false }), function(req, res) {
+    // @TODO: prevent a user to create too much registration document in a short amount of time
     // @TODO: use crypto number?
     const registerId = shortid.generate();
     const registerLink = `${req.hostname}:${config.port}${req.originalUrl}/${registerId}`;

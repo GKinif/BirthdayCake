@@ -3,14 +3,17 @@
         <h1>Birthday Cake</h1>
         <ul>
             <li><router-link :to="{ name: 'home'}" active-class="active" exact>Home</router-link></li>
-            <li v-if="isLoggedIn"><router-link :to="{ name: 'login'}" active-class="active">Login</router-link></li>
+            <li v-if="!isLoggedIn"><router-link :to="{ name: 'login'}" active-class="active">Login</router-link></li>
+            <li v-if="isLoggedIn"><router-link :to="{ name: 'invite'}" active-class="active">Invite</router-link></li>
+            <li v-if="isLoggedIn"><button @click.prevent="logout">Logout</button></li>
         </ul>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import * as types from '../store/types';
+    import authService from '../services/authService';
 
     export default {
         name: 'header',
@@ -18,6 +21,15 @@
             ...mapGetters({
                 isLoggedIn: types.GET_ISLOGGEDIN,
             }),
+        },
+        methods: {
+            ...mapActions({
+                setIsLoggedIn: types.SET_ISLOGGEDIN,
+            }),
+            logout() {
+                authService.deleteToken();
+                this.setIsLoggedIn(false);
+            },
         },
     };
 </script>

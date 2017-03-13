@@ -52,6 +52,10 @@ const authService = () => {
         getToken() {
             return token;
         },
+
+        deleteToken() {
+            token = null;
+        },
     };
 };
 
