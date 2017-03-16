@@ -1,6 +1,8 @@
 /* eslint no-shadow: "off", no-param-reassign: "off" */
 import * as types from '../types';
 
+let flashTimer;
+
 const state = {
     isVisible: false,
     text: '',
@@ -94,7 +96,9 @@ const actions = {
     [types.SHOW_FLASH_DURATION]: ({ commit }, flash) => {
         commit(types.SET_FLASH, { text: flash.text, type: flash.type, isVisible: true });
         const duration = flash.duration || 5;
-        setTimeout(() => commit(types.SET_FLASH_ISVISIBLE, false), duration * 1000);
+
+        clearTimeout(flashTimer);
+        flashTimer = setTimeout(() => commit(types.SET_FLASH_ISVISIBLE, false), duration * 1000);
     },
 };
 
