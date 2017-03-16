@@ -16,63 +16,80 @@ const userRoutes = express.Router();
  * @query {string[]} sort ['previousyears']
  */
 userRoutes.get('/user', function(req, res) {
-    // const possibleSort = {
-    //     nextbirthbay: 'nextBirthDay',
-    // };
-    // const currentYear = new Date().getFullYear();
-    // const limit = req.query.limit && req.query.limit < config.maxQueryUser ?
-    //     req.query.limit :
-    //     config.maxQueryUser;
-    //
-    // const query = User.find({
-    //         previousYears: {
-    //             $not: {
-    //                 $elemMatch: { year: currentYear }
-    //             }
-    //         },
-    //     });
-    //
-    // if (req.query.sort && Object.keys(possibleSort).includes(req.query.sort)) {
-    //     query.sort({ [possibleSort[req.query.sort]]: 1 });
-    // }
-    //
-    // query.limit(limit);
-    //
-    // query.exec(function(err, users) {
-    //     // @TODO: handle error
-    //     const usersData = users.map(user => user.toObject());
-    //     res.json(usersData);
-    // });
-
     userService.getUsers()
         .then((users) => {
+            // @TODO: handle case when no user are in DB
             const usersData = users.map(user => user.toObject());
-            res.json(usersData);
+            const response = {
+                data: usersData,
+                message: 'User list successfuly loaded',
+                success: true,
+            };
+            res.json(response);
         })
         .catch((err) => {
-            // @TODO: handle error
+            // @TODO: handle error properly
+            const response = {
+                data: err,
+                message: 'An error occured',
+                success: false,
+            };
+            res.status(500).json(response);
         });
 });
 
 // GET user based on userId
 userRoutes.get('/user/:userId', function(req, res) {
-    User.findOne({ _id: req.params.userId}, function(err, user) {
-        // @TODO: handle error
-        const userData = user.toObject();
-        res.json(userData);
-    });
+    User.findOne({ _id: req.params.userId })
+        .then(user => {
+            if (!user) {
+                throw {name: 'InvalidId', message: 'User not found'};
+            }
+            const response = {
+                data: user.toObject(),
+                success: true,
+                message: 'Successfuly retrieved user',
+            };
+            res.json(response);
+        })
+        .catch((err) => {
+            if (err.name === 'InvalidId') {
+                const fullRes = { success: false, message: err.message};
+                res.status(404).json(fullRes);
+                return;
+            }
+            const fullRes = { success: false, message: 'Internal server error' };
+            res.status(500).json(fullRes);
+        });
 });
 
-// GET user based on userId
+// GET user votes based on userId
 userRoutes.get('/user/:userId/votes', function(req, res) {
-    User.findOne({ _id: req.params.userId}, function(err, user) {
-        // @TODO: handle error
-        const userVotes = user.toObject().votes;
-        res.json(userVotes);
-    });
+    User.findOne({ _id: req.params.userId})
+        .then(user => {
+            if (!user) {
+                throw {name: 'InvalidId', message: 'User not found'};
+            }
+
+            const response = {
+                data: user.toObject().votes,
+                success: true,
+                message: 'Successfuly retrieved votes',
+            };
+            res.json(response);
+        })
+        .catch((err) => {
+            if (err.name === 'InvalidId') {
+                const fullRes = { success: false, message: err.message};
+                res.status(404).json(fullRes);
+                return;
+            }
+            const fullRes = { success: false, message: 'Internal server error' };
+            res.status(500).json(fullRes);
+        });
 });
 
-// GET user based on userId
+// POST add a vote to provided userId's user
 userRoutes.post(
     '/user/:userId/votes',
     passport.authenticate('jwt', { session: false }),
@@ -91,15 +108,23 @@ userRoutes.post(
     });
 });
 
-// GET user based on userId
+// GET upcoming birthday list
 userRoutes.get('/birthdaylist', function(req, res) {
     userService.getBirthDayList()
         .then((users) => {
             const usersData = users.map(user => user.toObject());
-            res.json(usersData);
+
+            const response = {
+                data: usersData,
+                success: true,
+                message: 'Successfuly retrieved birthday list',
+            };
+
+            res.json(response);
         })
         .catch((err) => {
-            // @TODO: handle error
+            const fullRes = { success: false, message: 'Internal server error' };
+            res.status(500).json(fullRes);
         });
 });
 
