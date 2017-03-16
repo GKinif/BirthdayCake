@@ -34,10 +34,16 @@ const actions = {
             commit(types.SET_USERS, users);
         }).catch(); // @TODO: show info message to the user telling we are not able to get users
     },
-    [types.LOAD_BIRTHDAY_LIST]: ({ commit }) => {
+    [types.LOAD_BIRTHDAY_LIST]: ({ commit, dispatch }) => {
         userService.getBirthDayList().then((users) => {
             commit(types.SET_USERS, users);
-        }).catch(); // @TODO: show info message to the user telling we are not able to get users
+        }).catch(() => {
+            const flash = {
+                text: 'Unable to get birthday list',
+                type: 'warning',
+            };
+            dispatch(types.SHOW_FLASH_DURATION, flash);
+        });
     },
 };
 
