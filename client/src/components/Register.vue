@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2>Register</h2>
-        <form>
+        <form enctype="multipart/form-data">
             <fieldset>
                 <!--EMAIL-->
                 <div class="form-group">
@@ -43,6 +43,9 @@
                     </select>
                 </div>
             </fieldset>
+            <fieldset>
+                <input type="file" name="avatar" accept="image/*" @change="setAvatar">
+            </fieldset>
 
             <button @click.prevent="register">Register</button>
         </form>
@@ -62,6 +65,7 @@
                 password: '',
                 firstName: '',
                 lastName: '',
+                avatar: null,
                 day: null,
                 month: null,
                 year: null,
@@ -97,17 +101,23 @@
             range(start, end) {
                 return Array.from({ length: (end - start) + 1 }, (v, k) => k + start);
             },
+            setAvatar(e) {
+                this.avatar = e.target.files[0];
+            },
             register() {
-                const userData = {
-                    email: this.email,
-                    password: this.password,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    birthDate: this.birthDate,
-                };
+                const userData = new FormData();
+
+                userData.append('email', this.email);
+                userData.append('password', this.password);
+                userData.append('firstName', this.firstName);
+                userData.append('lastName', this.lastName);
+                userData.append('birthDate', this.birthDate);
+                userData.append('avatar', this.avatar);
+
+                userData.append('registerId', this.$route.params.registerId);
+
                 // @TODO: validate user data
-                const registerId = this.$route.params.registerId;
-                userService.registerUser(registerId, userData)
+                userService.registerUser(userData)
                     .then((data) => {
                         this.showFlash({
                             text: data.message,
@@ -115,8 +125,6 @@
                         });
                     })
                     .catch((err) => {
-                        // @TODO: show flash message with error
-                        // console.log(err.response.data.message);
                         this.showFlash({
                             text: err.response.data.message,
                             type: 'error',

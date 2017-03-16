@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -20,8 +21,11 @@ passport.use(passportStrategy);
 app.use(passport.initialize());
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// serve static file
+app.use('/media', express.static(path.join(__dirname, 'media')));
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));
