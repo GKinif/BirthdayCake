@@ -89,7 +89,7 @@ const actions = {
     /**
      * Show the flash message during <duration> secondes
      * @param commit
-     * @param {{message: string, type: string, duration: number}} flash
+     * @param {{text: string, type: string, duration: number}} flash
      */
     [types.SHOW_FLASH_DURATION]: ({ commit }, flash) => {
         commit(types.SET_FLASH, { text: flash.text, type: flash.type, isVisible: true });
