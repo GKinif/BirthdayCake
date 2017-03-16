@@ -28,7 +28,7 @@ const userService = () => (
         getRegisterId(authHeader) {
             const headers = { Authorization: authHeader };
             return axios.get(`${config.api.baseUrl}${config.api.register}`, { headers })
-                .then(response => response.data.data);
+                .then(response => response.data);
         },
         registerUser(registerId, userData) {
             const payload = Object.assign(
@@ -37,14 +37,14 @@ const userService = () => (
                 { registerId },
             );
             return axios.post(`${config.api.baseUrl}${config.api.register}`, payload)
-                .then(response => response.data.data);
+                .then(response => response.data);
         },
         addVote(userId, authHeader) {
             const headers = { Authorization: authHeader };
 
             return axios
                 .post(`${config.api.baseUrl}${config.api.user}/${userId}/votes`, {}, { headers })
-                .then(response => response.data.data);
+                .then(response => response.data);
         },
     }
 );

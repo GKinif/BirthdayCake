@@ -25,6 +25,7 @@ const actions = {
         userService.getBirthDayList().then((users) => {
             commit(types.SET_USERS, users);
         }).catch(() => {
+            // @TODO: report the flash to the component instead of the store
             const flash = {
                 text: 'Unable to get birthday list',
                 type: 'warning',

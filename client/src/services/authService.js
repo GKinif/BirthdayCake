@@ -1,5 +1,6 @@
 /* eslint no-shadow: "off", no-param-reassign: "off" */
 import axios from 'axios';
+import { InvalidTokenError } from '../errors';
 import config from '../config';
 
 const authService = () => {
@@ -44,7 +45,7 @@ const authService = () => {
          */
         getAuthHeader() {
             if (!isTokenValid(token)) {
-                return Promise.reject(new Error('Invalid token'));
+                return Promise.reject(new InvalidTokenError('Please login to perform any action'));
             }
             return Promise.resolve(createAuthHeader(token));
         },

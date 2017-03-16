@@ -8,7 +8,7 @@
             <p>Birthday: {{ birthDay }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <button class="btnIncrease" v-if="isShamed" @click="onCakeUpClicked">
+            <button class="btnIncrease" v-if="isShamed && !isCakeUpBtnDisabled" @click="onCakeUpClicked" :disabled="isCakeUpBtnDisabled">
                 <svg viewBox="0 0 35 35">
                     <circle cx="17.5" cy="17.5" r="16"/>
                     <line x1="6" y1="17" x2="30" y2="17" />
@@ -20,11 +20,18 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+    import * as types from '../../store/types';
     import authServices from '../../services/authService';
     import userServices from '../../services/userService';
 
     export default {
         props: ['user'],
+        data() {
+            return {
+                isCakeUpBtnDisabled: false,
+            };
+        },
         computed: {
             birthDay() {
                 const day = this.user.birthDate.getDate() < 10 ?
@@ -44,14 +51,29 @@
             },
         },
         methods: {
+            ...mapActions({
+                showFlash: types.SHOW_FLASH_DURATION,
+            }),
             onCakeUpClicked() {
                 // @TODO: Disable button while waiting for server response
+                this.isCakeUpBtnDisabled = true;
                 authServices.getAuthHeader()
                     // eslint-disable-next-line
                     .then(authHeader => userServices.addVote(this.user._id, authHeader))
-                    .then((user) => {
-                        // eslint-disable-next-line
-                        console.log('vote: ', user);
+                    .then((response) => {
+                        this.showFlash({
+                            text: response.message,
+                            type: 'success',
+                        });
+                    })
+                    .catch((err) => {
+                        this.showFlash({
+                            text: err.response.data.message, // specific to axios
+                            type: 'error',
+                        });
+                    })
+                    .then(() => {
+                        this.isCakeUpBtnDisabled = false;
                     });
             },
         },

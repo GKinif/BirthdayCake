@@ -94,18 +94,50 @@ userRoutes.post(
     '/user/:userId/votes',
     passport.authenticate('jwt', { session: false }),
     function(req, res) {
-    User.findOne({ _id: req.params.userId}, function(err, user) {
-        // @TODO: handle error
-        const author = {
-            userId: req.user._id,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-        };
-        // @TODO: verify if author already add a vote before pushing the vote
-        user.votes.push({ author });
-        user.save();
-        res.json(user);
-    });
+    User.findOne({ _id: req.params.userId})
+        .then(user => {
+            if (!user) {
+                throw {name: 'InvalidId', message: 'User not found'};
+            }
+            return user;
+        })
+        .then(user => {
+            const author = {
+                userId: req.user._id.toString(),
+                firstName: req.user.firstName,
+                lastName: req.user.lastName,
+            };
+
+            const existingVote = user.votes.find(vote => vote.author.userId === author.userId);
+
+            if (existingVote) {
+                throw {name: 'ExistingVote', message: 'You already voted for this user'};
+            }
+
+            user.votes.push({ author });
+            user.save();
+
+            const response = {
+                data: user.toObject(),
+                message: 'Successfully saved Cake Up',
+                success: true,
+            };
+            res.status(201).json(response);
+        })
+        .catch(err => {
+            if (err.name === 'InvalidId') {
+                const fullRes = { success: false, message: err.message };
+                res.status(404).json(fullRes);
+                return;
+            }
+            if (err.name === 'ExistingVote') {
+                const fullRes = { success: false, message: err.message };
+                res.status(404).json(fullRes);
+                return;
+            }
+            const fullRes = { success: false, message: 'Internal server error' };
+            res.status(500).json(fullRes);
+        });
 });
 
 // GET upcoming birthday list
