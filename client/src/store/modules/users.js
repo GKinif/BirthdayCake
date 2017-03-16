@@ -2,19 +2,6 @@
 import userService from '../../services/userService';
 import * as types from '../types';
 
-function isUserBirthCakeOk(user) {
-    const currentDate = new Date();
-    const isBirthdateAlreadyPassed = user.birthDate.getMonth() < currentDate.getMonth() ||
-        (
-            user.birthDate.getDate() <= currentDate.getDate() &&
-            user.birthDate.getMonth() <= currentDate.getMonth()
-        );
-    const lastBirthdayCake = Math.max(...user.previousYears.map(year => year.year));
-
-    return !isBirthdateAlreadyPassed ||
-        currentDate.getFullYear() <= Number(lastBirthdayCake);
-}
-
 const state = {
     users: [],
 };
@@ -49,8 +36,6 @@ const actions = {
 
 const getters = {
     [types.GET_USERS]: state => state.users,
-    [types.GET_SHAMED_USERS]: state => state.users.filter(user => !isUserBirthCakeOk(user)),
-    [types.GET_GOOD_USERS]: state => state.users.filter(user => isUserBirthCakeOk(user)),
 };
 
 export default {
