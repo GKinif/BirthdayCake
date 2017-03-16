@@ -10,7 +10,7 @@ const RegistrationSchema = new Schema(
         isUsed: { type: Boolean, default: false },
     },
     {
-        timestamps: true,
+        timestamps: true, // will add createdAt and updatedAt
     }
 );
 
