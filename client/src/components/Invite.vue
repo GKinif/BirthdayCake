@@ -50,9 +50,7 @@
 
                 authService.getAuthHeader().then((authHeader) => {
                     userService.getRegisterId(authHeader).then((data) => {
-                        // eslint-disable-next-line
-                        console.log('registration: ', data);
-                        this.registerId = data.registration.registerId;
+                        this.registerId = data.data.registerId;
                     });
                 });
             },
