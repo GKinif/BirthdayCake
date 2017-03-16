@@ -4,33 +4,38 @@ const Schema = mongoose.Schema;
 
 const userRoles = ['user', 'moderator', 'admin'];
 
-const UserSchema = new Schema({
-    email: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    isActive: { type: Boolean, default: true },
-    role: {
-        type: String,
-        enum: userRoles,
-        default: 'user'
+const UserSchema = new Schema(
+    {
+        email: { type: String, unique: true, required: true },
+        password: { type: String, required: true },
+        isActive: { type: Boolean, default: true },
+        role: {
+            type: String,
+            enum: userRoles,
+            default: 'user'
+        },
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        birthDate: { type: Date, required: true },
+        nextBirthDay: { type: Date, required: true },
+        profilePic: String,
+        previousYears: [
+            {
+                year: Number,
+                cakeDate: Date,
+            }
+        ],
+        votes: [
+            {
+                dateCreation: { type: Date, default: Date.now },
+                author: { userId: String, firstName: String, lastName: String },
+            }
+        ],
     },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    birthDate: { type: Date, required: true },
-    nextBirthDay: { type: Date, required: true },
-    profilePic: String,
-    previousYears: [
-        {
-            year: Number,
-            cakeDate: Date,
-        }
-    ],
-    votes: [
-        {
-            dateCreation: { type: Date, default: Date.now },
-            author: { userId: String, firstName: String, lastName: String },
-        }
-    ],
-});
+    {
+        timestamps: true,
+    }
+);
 
 /**
  * User bcrypt to encrypt user password before saving
