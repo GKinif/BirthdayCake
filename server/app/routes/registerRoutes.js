@@ -110,18 +110,15 @@ registerRoutes.post('/register', function(req, res) {
             .catch((err) => {
                 if (err.name === 'InvalidRegistration') {
                     const fullRes = { success: false, message: err.message};
-                    res.status(404).json(fullRes);
-                    return;
+                    return res.status(404).json(fullRes);
                 }
                 if (err.name === 'MongoError') {
                     const fullRes = { success: false, message: 'Email already used' };
-                    res.status(400).json(fullRes);
-                    return;
+                    return res.status(400).json(fullRes);
                 }
                 if (err.name === 'InvalidUserData') {
                     const fullRes = { success: false, message: err.message };
-                    res.status(400).json(fullRes);
-                    return;
+                    return res.status(400).json(fullRes);
                 }
                 const fullRes = { success: false, message: 'Internal server error' };
                 res.status(500).json(fullRes);
