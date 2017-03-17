@@ -2,6 +2,8 @@
 
 > Server providing API to feed and retrieve data about Birthday cake
 
+**Before starting copy the file dev.env and rename it to .env**
+
 ## Scripts
 ``` bash
 # install dependencies
