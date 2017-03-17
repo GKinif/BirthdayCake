@@ -50,7 +50,7 @@ registerRoutes.get('/register', passport.authenticate('jwt', { session: false })
 });
 
 /**
- *
+ * POST Create a new user in DB using a registration
  */
 registerRoutes.post('/register', function(req, res) {
     avatarUpload(req, res, function (err) {
@@ -65,12 +65,14 @@ registerRoutes.post('/register', function(req, res) {
         // @TODO: Validate user data first, then retrieve registration, then save user
         Registration.findOne({ registerId: req.body.registerId })
             .then(registration => {
+                // Validate registration
                 if (!registration || registration.isUsed) {
                     throw {name: 'InvalidRegistration', message: 'Registration not found or already used'};
                 }
                 return registration;
             })
             .then(registration => {
+                // Save the user in DB
                 const birthDate = new Date(req.body.birthDate);
                 const nextBirthDay = User.calculateNextBirthDay(birthDate);
 
@@ -97,6 +99,7 @@ registerRoutes.post('/register', function(req, res) {
                     });
             })
             .then(user => {
+                // Send response
                 const response = {
                     registration: user.toObject(),
                     message: 'Successfully registered',
