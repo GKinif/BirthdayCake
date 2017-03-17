@@ -1,4 +1,4 @@
-# anniversary-cake
+# BirthdayCake client
 
 > A simple tracker to know who have to bring a cake
 
