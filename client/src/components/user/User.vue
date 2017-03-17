@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="profilePic" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <img :src="profilePic" alt="profile picture" v-if="user.profilePic && user.profilePic.length > 4">
+            <img :src="profilePicUrl" alt="profile picture" v-if="user.profilePic && user.profilePic.length > 4">
         </div>
         <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
@@ -31,7 +31,7 @@
         data() {
             return {
                 isCakeUpBtnDisabled: false,
-                profilePic: `${config.serverUrl}${this.user.profilePic}`,
+                profilePicUrl: `${config.serverUrl}${this.user.profilePic}`,
             };
         },
         computed: {
