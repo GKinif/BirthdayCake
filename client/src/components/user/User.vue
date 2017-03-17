@@ -8,7 +8,7 @@
             <p>Birthday: {{ birthDay }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <button class="btnIncrease" v-if="isShamed && !isCakeUpBtnDisabled" @click="onCakeUpClicked" :disabled="isCakeUpBtnDisabled">
+            <button class="btnIncrease" v-if="isLoggedIn && isShamed && !isCakeUpBtnDisabled" @click="onCakeUpClicked" :disabled="isCakeUpBtnDisabled">
                 <svg viewBox="0 0 35 35">
                     <circle cx="17.5" cy="17.5" r="16"/>
                     <line x1="6" y1="17" x2="30" y2="17" />
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import config from '../../config';
     import * as types from '../../store/types';
     import authServices from '../../services/authService';
@@ -35,6 +35,9 @@
             };
         },
         computed: {
+            ...mapGetters({
+                isLoggedIn: types.GET_ISLOGGEDIN,
+            }),
             birthDay() {
                 const day = this.user.birthDate.getDate() < 10 ?
                     `0${this.user.birthDate.getDate()}` :
