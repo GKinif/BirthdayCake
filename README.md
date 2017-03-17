@@ -10,7 +10,7 @@
 ### TODO
 
 **Client**
-* Right E2E testing
+* Write E2E testing
 * Create admin interface
 * Edit profile Component
 * Better documentation
