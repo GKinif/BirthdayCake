@@ -20,3 +20,4 @@
 * PUT user/:userId => edit user
 * query string filter for user routes
 * Improve security
+* Finish to rewrite all mongoose search using promise
