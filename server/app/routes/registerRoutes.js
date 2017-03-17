@@ -2,51 +2,14 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const shortid = require('shortid');
-const multer = require('multer');
 
 const config = require('../../config/config');
 const Registration = require('../models/Registration');
 const User = require('../models/User');
 const userValidation = require('../../../shared/validation/userValidation');
+const avatarUpload = require('../../config/multerUploader');
 
 const registerRoutes = express.Router();
-
-const storage = multer.diskStorage({
-    destination: 'media/avatars/',
-    filename: function (req, file, cb) {
-        const extension = file.originalname.split('.').pop();
-        const fileName = `${req.body.email}.${extension}`;
-        cb(null, fileName);
-    }
-});
-
-const fileFilter = (req, file, next) => {
-    // @TODO: Validate using file-type (need to convert image to buffer)
-    const regx = /^image\/.+$/;
-
-    const isMimeValid = regx.test(file.mimetype);
-
-    if (isMimeValid) {
-        next(null, true);
-    } else {
-        next(new Error('Invalid file type'));
-    }
-};
-
-// for parsing multipart/form-data
-const avatarUpload = multer({
-    storage,
-    fileFilter,
-    limits: {
-        fileSize: 50000
-    },
-}).single('avatar');
-
-// =======================
-// Protected routes ======
-// =======================
-// All routes after this will need jwt authentication
-// registerRoutes.use(passport.authenticate('jwt', { session: false }));
 
 /**
  * Generate a registerId and send back a register object
@@ -118,7 +81,7 @@ registerRoutes.post('/register', function(req, res) {
                     lastName: req.body.lastName,
                     birthDate,
                     nextBirthDay,
-                    profilePic: req.file.path, // @TODO: provide the full url to the image since it will be used from other domain
+                    profilePic: req.file.path,
                 };
 
                 if (!userValidation.isUserValid(userData)) {
