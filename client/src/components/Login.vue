@@ -38,6 +38,7 @@
                                 type: 'success',
                             });
                             this.setIsLoggedIn(true);
+                            this.$router.push({ name: 'home' });
                         } else {
                             this.showFlash({
                                 text: data.message,
