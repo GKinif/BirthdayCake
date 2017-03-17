@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="profilePic" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
-            <img :src="user.profilePic" alt="profile picture" v-if="user.profilePic && user.profilePic.length > 4">
+            <img :src="profilePic" alt="profile picture" v-if="user.profilePic && user.profilePic.length > 4">
         </div>
         <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
@@ -21,6 +21,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import config from '../../config';
     import * as types from '../../store/types';
     import authServices from '../../services/authService';
     import userServices from '../../services/userService';
@@ -30,6 +31,7 @@
         data() {
             return {
                 isCakeUpBtnDisabled: false,
+                profilePic: `${config.serverUrl}${this.user.profilePic}`,
             };
         },
         computed: {
