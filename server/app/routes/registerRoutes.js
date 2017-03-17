@@ -38,7 +38,7 @@ registerRoutes.get('/register', passport.authenticate('jwt', { session: false })
                 success: false,
                 message: 'Unable to create registration',
             };
-            res.status(500).json(reponse);
+            return res.status(500).json(reponse);
         });
 
     const response = {
