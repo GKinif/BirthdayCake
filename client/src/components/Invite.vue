@@ -100,4 +100,18 @@
         display: flex;
         align-items: flex-end;
     }
+
+    button {
+        box-sizing: border-box;
+        background-color: transparent;
+        color: #FEF9F6;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    button:focus {
+        border: 2px solid #FFD49F;
+        color: #FFD49F;
+    }
 </style>
