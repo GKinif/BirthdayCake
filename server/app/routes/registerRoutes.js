@@ -30,9 +30,6 @@ registerRoutes.get('/register', passport.authenticate('jwt', { session: false })
     const registrationInstance = new Registration(registration);
 
     registrationInstance.save()
-        .then(registration => {
-            console.log(registration);
-        })
         .catch(err => {
             const reponse = {
                 success: false,
