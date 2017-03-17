@@ -9,7 +9,6 @@ const users = [
         lastName: 'Kinif',
         birthDate: new Date('1985-08-02'),
         nextBirthDay: new Date('2017-08-02'),
-        profilePic: 'http://lorempixel.com/200/200/',
         previousYears: [
             {
                 year: 2016,
@@ -25,7 +24,6 @@ const users = [
         lastName: 'User',
         birthDate: new Date('1990-05-15'),
         nextBirthDay: new Date('2017-05-15'),
-        profilePic: 'http://lorempixel.com/200/200/',
         previousYears: [
             {
                 year: 2016,
@@ -41,7 +39,6 @@ const users = [
         lastName: 'BB',
         birthDate: new Date('1995-12-15'),
         nextBirthDay: new Date('2017-12-15'),
-        profilePic: 'http://lorempixel.com/200/200/',
         previousYears: [
             {
                 year: 2016,
@@ -57,7 +54,6 @@ const users = [
         lastName: 'Boy',
         birthDate: new Date('1995-01-15'),
         nextBirthDay: new Date('2017-01-15'),
-        profilePic: 'http://lorempixel.com/200/200/',
         previousYears: [
             {
                 year: 2016,
@@ -73,7 +69,6 @@ const users = [
         lastName: 'Boy',
         birthDate: new Date('1995-01-15'),
         nextBirthDay: new Date('2018-01-15'),
-        profilePic: 'http://lorempixel.com/200/200/',
         previousYears: [
             {
                 year: 2016,
