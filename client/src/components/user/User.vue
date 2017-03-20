@@ -5,7 +5,7 @@
         </div>
         <div class="informations">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-            <p>Birthday: {{ birthDay }}</p>
+            <p>Birthday: {{ birthDayText }}</p>
         </div>
         <div class="actions" :class="{ bdayWarning: isShamed, bdayOk: !isShamed }">
             <button class="btnIncrease" v-if="isLoggedIn && isShamed && !isCakeUpBtnDisabled" @click="onCakeUpClicked" :disabled="isCakeUpBtnDisabled">
@@ -38,7 +38,7 @@
             ...mapGetters({
                 isLoggedIn: types.GET_ISLOGGEDIN,
             }),
-            birthDay() {
+            birthDayText() {
                 const day = this.user.birthDate.getDate() < 10 ?
                     `0${this.user.birthDate.getDate()}` :
                     `${this.user.birthDate.getDate()}`;

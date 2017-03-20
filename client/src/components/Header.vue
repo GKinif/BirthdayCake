@@ -42,7 +42,6 @@
         text-align: center;
         border-bottom: 1px solid #757575;
         padding-bottom: 5px;
-        margin-bottom: 5px;
     }
 
     h1{

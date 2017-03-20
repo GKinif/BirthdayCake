@@ -2,6 +2,7 @@
     <div id="app">
         <img class="logo" src="./assets/logo3.png">
         <app-header></app-header>
+
         <!--<keep-alive>-->
         <router-view></router-view>
         <!--</keep-alive>-->
@@ -12,6 +13,7 @@
 <script>
     import Header from './components/Header';
     import FlashMessage from './components/FlashMessage';
+
 
     export default {
         name: 'app',

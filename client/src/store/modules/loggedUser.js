@@ -22,6 +22,10 @@ const mutations = {
 
 const actions = {
     [types.SET_LOGGEDUSER]: ({ commit }, user) => {
+        user.birthDate = new Date(user.birthDate);
+        user.nextBirthDay = new Date(user.nextBirthDay);
+        user.createdAt = new Date(user.createdAt);
+        user.updatedAt = new Date(user.updatedAt);
         commit(types.SET_LOGGEDUSER, user);
     },
     [types.SET_ISLOGGEDIN]: ({ commit }, isLoggedIn) => {
