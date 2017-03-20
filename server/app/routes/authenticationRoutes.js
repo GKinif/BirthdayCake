@@ -31,7 +31,10 @@ authenticationRoutes.post('/authenticate', function(req, res) {
                         res.json({
                             success: true,
                             message: 'Authentication complete',
-                            token: token
+                            data: {
+                                token,
+                                user,
+                            },
                         });
                     } else {
                         res.json(

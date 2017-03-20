@@ -1,8 +1,13 @@
 /* ==============================
-=== LOGIN =======================
+ === LOGGED USER ================
  ============================== */
+// USERS GETTERS
+export const GET_LOGGEDUSER = 'GET_LOGGEDUSER';
 export const GET_ISLOGGEDIN = 'GET_ISLOGGEDIN';
+// USERS MUTATIONS
+export const SET_LOGGEDUSER = 'SET_LOGGEDUSER';
 export const SET_ISLOGGEDIN = 'SET_ISLOGGEDIN';
+
 /* ==============================
 === USERS =======================
 ============================== */

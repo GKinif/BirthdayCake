@@ -28,20 +28,22 @@
             ...mapActions({
                 showFlash: types.SHOW_FLASH_DURATION,
                 setIsLoggedIn: types.SET_ISLOGGEDIN,
+                setLoggedUser: types.SET_LOGGEDUSER,
             }),
             authenticate() {
                 authService.authenticate(this.email, this.password)
-                    .then((data) => {
-                        if (data.success) {
+                    .then((response) => {
+                        if (response.success) {
                             this.showFlash({
-                                text: data.message,
+                                text: response.message,
                                 type: 'success',
                             });
                             this.setIsLoggedIn(true);
+                            this.setLoggedUser(response.data.user);
                             this.$router.push({ name: 'home' });
                         } else {
                             this.showFlash({
-                                text: data.message,
+                                text: response.message,
                                 type: 'error',
                             });
                             this.setIsLoggedIn(false);
