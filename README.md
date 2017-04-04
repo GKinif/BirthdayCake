@@ -17,6 +17,7 @@
 
 **Server**
 * Rewrite using TypeScript
+* Stop send password to Client
 * PUT user/:userId => edit user
 * query string filter for user routes
 * Improve security
