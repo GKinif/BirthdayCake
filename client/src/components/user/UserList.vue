@@ -1,6 +1,10 @@
 <template>
     <ul>
-        <user v-for="user in userList" :user="user"></user>
+        <user
+            v-for="user in userList"
+            :user="user"
+            :key="user._id">
+        </user>
     </ul>
 </template>
 
