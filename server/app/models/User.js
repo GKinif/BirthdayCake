@@ -89,4 +89,15 @@ UserSchema.methods.comparePassword = function(password) {
     return bcrypt.compare(password, this.password);
 };
 
+/**
+ * Remove the _id and password property from object when using model.toObject()
+ */
+if (!UserSchema.options.toObject) UserSchema.options.toObject = {};
+UserSchema.options.toObject.transform = function (doc, ret, options) {
+    // remove the _id of every document before returning the result
+    delete ret._id;
+    delete ret.password;
+    return ret;
+};
+
 module.exports = mongoose.model('User', UserSchema);
