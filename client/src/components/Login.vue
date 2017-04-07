@@ -23,6 +23,7 @@
     import { mapActions } from 'vuex';
     import * as types from '../store/types';
     import authService from '../services/authService';
+    import userValidation from '../store/validations/userValidation';
 
     export default {
         name: 'login',
@@ -39,6 +40,16 @@
                 setLoggedUser: types.SET_LOGGEDUSER,
             }),
             authenticate() {
+                if (!(
+                    userValidation.isEmailValid(this.email) &&
+                    userValidation.isPasswordValid(this.password))
+                ) {
+                    this.showFlash({
+                        text: 'Email and password required',
+                        type: 'warning',
+                    });
+                    return;
+                }
                 authService.authenticate(this.email, this.password)
                     .then((response) => {
                         if (response.success) {
@@ -56,6 +67,12 @@
                             });
                             this.setIsLoggedIn(false);
                         }
+                    })
+                    .catch((err) => {
+                        this.showFlash({
+                            text: err.response.data.message,
+                            type: 'error',
+                        });
                     });
             },
         },

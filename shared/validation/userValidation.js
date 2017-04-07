@@ -1,33 +1,50 @@
 const userRoles = ['user', 'moderator', 'admin'];
 
 function userValidation() {
+    /**
+     * Validate email
+     * @param {string} email
+     * @returns {boolean}
+     */
     function isEmailValid(email) {
         const re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
         return !!email && re.test(email);
     }
 
+    /**
+     * Validate password
+     * @param {string} password
+     * @returns {boolean}
+     */
     function isPasswordValid(password) {
         return !!password && typeof password === 'string' && password.length > 3;
     }
 
+    /**
+     * Validate role
+     * @param {string} role
+     * @returns {boolean}
+     */
     function isRoleValid(role) {
         return !!role && userRoles.indexOf(role) > -1;
     }
 
-    function isFirstNameValid(firstName) {
-        return !!firstName && typeof firstName === 'string' && firstName.length > 1;
+    /**
+     * Validate name
+     * @param {string} name
+     * @returns {boolean}
+     */
+    function isNameValid(name) {
+        return !!name && typeof name === 'string' && name.length > 1;
     }
 
-    function isLastNameValid(lastName) {
-        return !!lastName && typeof lastName === 'string' && lastName.length > 1;
-    }
-
-    function isBirthDateValid(birthDate) {
-        return !!birthDate && isFinite(new Date(birthDate).getTime());
-    }
-
-    function isBirthDayValid(birthDayDate) {
-        return !!birthDayDate && isFinite(new Date(birthDayDate).getTime());
+    /**
+     * Validate date
+     * @param {string} date
+     * @returns {boolean}
+     */
+    function isDateValid(date) {
+        return !!date && isFinite(new Date(date).getTime());
     }
 
     function isProfilePicNameValid() {
@@ -44,20 +61,18 @@ function userValidation() {
         return (
             isEmailValid(userData.email) &&
             isPasswordValid(userData.password) &&
-            isFirstNameValid(userData.firstName) &&
-            isLastNameValid(userData.lastName) &&
-            isBirthDateValid(userData.birthDate) &&
-            isBirthDayValid(userData.nextBirthDay)
+            isNameValid(userData.firstName) &&
+            isNameValid(userData.lastName) &&
+            isDateValid(userData.birthDate) &&
+            isDateValid(userData.nextBirthDay)
         );
     }
     return {
         isEmailValid,
         isPasswordValid,
         isRoleValid,
-        isFirstNameValid,
-        isLastNameValid,
-        isBirthDateValid,
-        isBirthDayValid,
+        isNameValid,
+        isDateValid,
         isProfilePicNameValid,
         isProfilePicValid,
         isUserValid

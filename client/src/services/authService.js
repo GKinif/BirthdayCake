@@ -33,9 +33,6 @@ const authService = () => {
                 .then((response) => {
                     token = response.data.data.token;
                     return response.data;
-                })
-                .catch((err) => {
-                    throw err;
                 });
         },
 
