@@ -47,7 +47,7 @@
                 <input type="file" name="avatar" accept="image/*" @change="setAvatar">
             </fieldset>
 
-            <button @click.prevent="register">Register</button>
+            <button type="button" @click="register">Register</button>
         </form>
     </div>
 </template>
@@ -181,5 +181,24 @@
         margin-bottom: 5px;
         display: flex;
         align-items: flex-end;
+    }
+
+    button {
+        box-sizing: border-box;
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #FEF9F6;
+        padding: 10px;
+        border-radius: 5px;
+        outline: 0;
+        font-size: 1em;
+    }
+
+    button:active {
+        background-color: #757575;
+    }
+    button:focus, button:hover {
+        color: #FFD49F;
+        border: 2px solid #FFD49F;
     }
 </style>

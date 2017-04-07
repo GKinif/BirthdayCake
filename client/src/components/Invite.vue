@@ -104,14 +104,18 @@
     button {
         box-sizing: border-box;
         background-color: transparent;
-        color: #FEF9F6;
         border: 1px solid #ccc;
+        color: #FEF9F6;
+        padding: 10px;
         border-radius: 5px;
-        padding: 10px 20px;
+        outline: 0;
+        font-size: 1em;
     }
-
-    button:focus {
-        border: 2px solid #FFD49F;
+    button:active {
+        background-color: #757575;
+    }
+    button:focus, button:hover {
         color: #FFD49F;
+        border: 2px solid #FFD49F;
     }
 </style>
